@@ -7,6 +7,7 @@ use App\Models\weather;
 use App\Http\Resources\WeatherResource;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use  \Illuminate\Http\Response;
 
 
 class WeatherController extends Controller
@@ -40,7 +41,12 @@ class WeatherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        error_log('INTO store()');////////////////
+        $record = weather::create($request->all());
+
+        return response([
+            'data' => new WeatherResource($record)
+        ],Response::HTTP_CREATED);
     }
 
     /**
